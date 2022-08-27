@@ -19,8 +19,6 @@ class GraphViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        // グラフを表示する
         dataArray = saveData.object(forKey: "score") as? [Double] ?? [Double]()
         displayChart(data: dataArray)
     }
@@ -31,42 +29,29 @@ class GraphViewController: UIViewController {
         self.loadView()
         self.viewDidLoad()
     }
+    
     func displayChart(data: [Double]) {
-        // グラフの範囲を指定する
         chartView = LineChartView(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 400))
-        // プロットデータ(y軸)を保持する配列
         var dataEntries = [ChartDataEntry]()
-        
         for (xValue, yValue) in data.enumerated() {
             let dataEntry = ChartDataEntry(x: Double(xValue), y: yValue)
             dataEntries.append(dataEntry)
         }
-        // グラフにデータを適用
         chartDataSet = LineChartDataSet(entries: dataEntries, label: "SampleDataChart")
-        
-        chartDataSet.lineWidth = 5.0 // グラフの線の太さを変更
-        chartDataSet.mode = .cubicBezier // 滑らかなグラフの曲線にする
-        
+        chartDataSet.lineWidth = 5.0
+        chartDataSet.mode = .cubicBezier
         chartView.data = LineChartData(dataSet: chartDataSet)
-        
-        // X軸(xAxis)
-        chartView.xAxis.labelPosition = .bottom // x軸ラベルをグラフの下に表示する
-        
-        // Y軸(leftAxis/rightAxis)
-        chartView.leftAxis.axisMaximum = 100 //y左軸最大値
-        chartView.leftAxis.axisMinimum = 0 //y左軸最小値
-        chartView.leftAxis.labelCount = 6 // y軸ラベルの数
-        chartView.rightAxis.enabled = false // 右側の縦軸ラベルを非表示
-        
-        // その他の変更
-        chartView.highlightPerTapEnabled = false // プロットをタップして選択不可
-        chartView.legend.enabled = false // グラフ名（凡例）を非表示
-        chartView.pinchZoomEnabled = false // ピンチズーム不可
-        chartView.doubleTapToZoomEnabled = false // ダブルタップズーム不可
-        chartView.extraTopOffset = 20 // 上から20pxオフセットすることで上の方にある値(99.0)を表示する
-        
-        chartView.animate(xAxisDuration: 1.25) // 2秒かけて左から右にグラフをアニメーションで表示する
-        
+        chartView.xAxis.labelPosition = .bottom
+        chartView.leftAxis.axisMaximum = 100
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.labelCount = 6
+        chartView.rightAxis.enabled = false
+        chartView.highlightPerTapEnabled = false
+        chartView.legend.enabled = false
+        chartView.pinchZoomEnabled = false
+        chartView.doubleTapToZoomEnabled = false
+        chartView.extraTopOffset = 20
+        chartView.animate(xAxisDuration: 1.25)
         view.addSubview(chartView)
     }
 }

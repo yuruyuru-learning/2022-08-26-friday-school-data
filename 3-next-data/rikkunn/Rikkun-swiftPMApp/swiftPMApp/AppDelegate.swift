@@ -29,14 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-    func applicationWillResignActive(application: UIApplication) {
-        var date1 = Date()
+    func applicationWillResignActive(_ application: UIApplication) {
+        let date1 = Date()
         UserDefaults.standard.set(date1, forKey: "today")
-           
+        
     }
-    func applicationDidBecomeActive(application: UIApplication) {
-        var date2 = Date()
-
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        
     }
 }
 
